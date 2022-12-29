@@ -1,4 +1,6 @@
 import express from "express";
+import connectDB from "./db/connectDB.js";
+import productRoute from "./router/productRoute.js";
 const app = express();
 
 // Embedding .env file
@@ -6,13 +8,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Connecting database
-import connectDB from "./db/connectDB.js";
 
 // Parsing body
 app.use(express.json());
 
 // Routes
-import productRoute from "./router/productRoute.js";
 
 app.use("/api/v1/product", productRoute);
 
