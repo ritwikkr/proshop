@@ -1,26 +1,73 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  /* border: 12px solid blue; */
   width: 90%;
   margin: 20px auto 0;
-  height: 200px;
+  height: 450px;
   background-color: black;
-  img {
-    width: 100%;
-    height: 200px;
-  }
-  .thumbs-wrapper {
-    display: none;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .carousel-root {
+    width: 90%;
+    height: 80%;
+    .carousel {
+      height: 100%;
+      .control-dots {
+        li {
+          width: 80px;
+          height: 5px;
+          border-radius: 0%;
+        }
+      }
+      .slider-wrapper {
+        height: 100%;
+        .slider {
+          height: 100%;
+          .slide {
+            position: relative;
+            .image {
+              background-color: white;
+              width: 350px;
+              height: 250px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 40px auto 0;
+              img {
+                width: 150px;
+                height: 150px;
+              }
+              p.legend {
+                position: absolute;
+                opacity: 1;
+                top: 0;
+                left: 50%;
+                bottom: unset;
+                background-color: transparent;
+                font-weight: 900;
+                text-transform: uppercase;
+                font-size: 20px;
+              }
+            }
+          }
+        }
+      }
 
-  .carousel .slide .legend {
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    height: 40px;
-    &:hover {
-      background-color: blue;
+      .thumbs-wrapper {
+        display: none;
+      }
+
+      .carousel .slide .legend {
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        height: 40px;
+        &:hover {
+          background-color: blue;
+        }
+      }
     }
   }
 `;
