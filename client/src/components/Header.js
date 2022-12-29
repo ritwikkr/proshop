@@ -15,40 +15,38 @@ function Header() {
   return (
     <Wrapper>
       <div className="body">
-        <Link to={"/"} style={{ color: "unset", textDecoration: "unset" }}>
+        <div className="left">
           <div className="logo">
-            <h2>proshop</h2>
+            <Link to={"/"}>
+              <h2>proshop</h2>
+            </Link>
           </div>
-        </Link>
-        <div className="search-bar">
-          <form onSubmit={searchHandler}>
+          <div className="search-bar">
             <input
               type="text"
-              placeholder="Search Products"
+              placeholder="Search Products..."
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button type="submit">Search</button>
-          </form>
+          </div>
         </div>
         <div className="navigation">
-          <Link
-            to={"/cart"}
-            style={{ color: "unset", textDecoration: "unset" }}
-          >
-            <div className="cart">
-              <BsFillCartFill />
+          <div className="cart">
+            <Link to={"/cart"}>
+              <div className="icon">
+                <BsFillCartFill />
+              </div>
               <p>cart</p>
-            </div>
-          </Link>
-          <Link
-            to={"/login"}
-            style={{ color: "unset", textDecoration: "unset" }}
-          >
-            <div className="profile">
-              <FaUserAlt />
+            </Link>
+          </div>
+          <div className="profile">
+            <Link to={"/login"}>
+              <div className="icon">
+                <FaUserAlt />
+              </div>
               <p>sign in</p>
-            </div>
-          </Link>
+            </Link>
+          </div>
         </div>
       </div>
     </Wrapper>
