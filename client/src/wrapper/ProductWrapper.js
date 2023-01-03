@@ -1,21 +1,43 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  /* border: 2px solid blue; */
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  border: 1px solid lightgray;
   padding: 10px;
   border-radius: 10px;
-  width: 300px;
-  /* height: 300px; */
+  width: 350px;
   margin: 10px;
+  cursor: pointer;
   .body {
     > .image {
-      /* border: 2px solid red; */
-      width: 80%;
+      width: 90%;
       margin: 10px auto;
       > img {
         width: 100%;
         height: 100%;
+      }
+    }
+    .description {
+      width: 80%;
+      margin: 20px auto;
+      .title {
+        letter-spacing: 1.2px;
+        line-height: 22px;
+        /* border: 1px solid red; */
+        height: 45px;
+      }
+      .rating {
+        margin: 10px 0;
+        color: rgb(250, 218, 56);
+        display: flex;
+        span {
+          color: black;
+          margin-left: 10px;
+          letter-spacing: 1.1px;
+        }
+      }
+      .price {
+        font-size: 28px;
+        font-weight: 500;
       }
     }
   }

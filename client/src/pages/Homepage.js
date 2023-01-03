@@ -19,9 +19,9 @@ function Homepage() {
   useEffect(() => {
     fetchProducts();
   }, []);
-  // if (products.length === 0) {
-  //   return <Loading />;
-  // }
+  if (products.length === 0) {
+    return <Loading />;
+  }
   return (
     <Wrapper>
       <div className="body">

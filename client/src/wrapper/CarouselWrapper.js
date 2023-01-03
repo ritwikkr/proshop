@@ -12,6 +12,9 @@ const Wrapper = styled.div`
     width: 90%;
     height: 80%;
     .carousel {
+      &:last-child {
+        display: none;
+      }
       height: 100%;
       .control-dots {
         li {
@@ -27,7 +30,7 @@ const Wrapper = styled.div`
           .slide {
             position: relative;
             .image {
-              background-color: white;
+              background-color: rgb(239, 239, 241);
               width: 350px;
               height: 250px;
               border-radius: 50%;
@@ -36,8 +39,8 @@ const Wrapper = styled.div`
               justify-content: center;
               margin: 40px auto 0;
               img {
-                width: 150px;
-                height: 150px;
+                width: 180px;
+                height: 180px;
               }
               p.legend {
                 position: absolute;
