@@ -71,9 +71,11 @@ function ProductPage() {
               <option value="1">1</option>
             </select>
           </div>
-          <div className="btn">
-            <button>add to cart</button>
-          </div>
+          <Link to={"/cart"}>
+            <div className="btn">
+              <button>add to cart</button>
+            </div>
+          </Link>
         </div>
       </div>
       <div className="reviews">
