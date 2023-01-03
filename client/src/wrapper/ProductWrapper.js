@@ -27,7 +27,6 @@ const Wrapper = styled.div`
       }
       .rating {
         margin: 10px 0;
-        color: rgb(250, 218, 56);
         display: flex;
         span {
           color: black;

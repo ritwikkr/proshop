@@ -26,4 +26,14 @@ async function getProducts(req, res) {
   }
 }
 
-export { createProduct, getProducts };
+async function getSingleProduct(req, res) {
+  try {
+    const id = req.params.id;
+    const data = await Product.findById(id);
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { createProduct, getProducts, getSingleProduct };

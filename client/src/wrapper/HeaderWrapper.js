@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   height: 80px;
-  width: 100vw;
   padding: 10px;
   background-color: rgb(46, 50, 56);
   color: rgb(220, 224, 231);
