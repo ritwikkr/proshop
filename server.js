@@ -1,6 +1,7 @@
 import express from "express";
 import connectDB from "./db/connectDB.js";
 import productRoute from "./router/productRoute.js";
+import userRoute from "./router/userRoutes.js";
 const app = express();
 
 // Embedding .env file
@@ -15,6 +16,7 @@ app.use(express.json());
 // Routes
 
 app.use("/api/v1/product", productRoute);
+app.use("/api/v1/user", userRoute);
 
 function start() {
   const PORT = process.env.PORT || 5000;
