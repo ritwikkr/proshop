@@ -1,6 +1,8 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Wrapper from "../wrapper/LoginPageWrapper";
+import { useDispatch, useSelector } from "react-redux";
+import { createSession } from "../store/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 function Loginpage() {
   const [showLogin, setShowLogin] = useState(true);
@@ -10,35 +12,34 @@ function Loginpage() {
     password: "",
     confirmPassword: "",
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { data } = useSelector((state) => state.user);
+  useEffect(() => {
+    if (data) {
+      navigate("/");
+    }
+  }, [data, navigate]);
 
   function formSubmitHandler(e) {
     e.preventDefault();
     const { name, email, password, confirmPassword } = userDetails;
 
     if (showLogin) {
-      login({ email, password });
+      dispatch(
+        createSession({ sessionType: "login", userData: { email, password } })
+      );
     } else {
       if (password !== confirmPassword) {
         return;
       }
-      logout({ name, email, password });
-    }
-  }
-
-  async function login(userData) {
-    try {
-      const { data } = await axios.post(`/api/v1/user/login`, userData);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  async function logout(userData) {
-    try {
-      const { data } = await axios.post(`/api/v1/user/signup`, userData);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
+      dispatch(
+        createSession({
+          sessionType: "signup",
+          userData: { name, email, password },
+        })
+      );
     }
   }
 

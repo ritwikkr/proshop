@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import DemoCarousel from "../components/Carousel";
 import Product from "../components/Product";
 import Wrapper from "../wrapper/HomePageWrapper";
-import axios from "axios";
 import Loading from "../components/Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../store/slices/productsSlice";
 
 function Homepage() {
-  const [products, setProducts] = useState([]);
-  async function fetchProducts() {
-    try {
-      const { data } = await axios.get("/api/v1/product/getProducts");
-      setProducts(data);
-      // console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const dispatch = useDispatch();
+
+  const { isLoading, data } = useSelector((state) => state.products);
+
   useEffect(() => {
-    fetchProducts();
-  }, []);
-  if (products.length === 0) {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  if (isLoading) {
     return <Loading />;
   }
   return (
@@ -29,7 +25,7 @@ function Homepage() {
         <div className="featured">
           <h2>latest products</h2>
           <div className="products">
-            {products.map((item) => (
+            {data.map((item) => (
               <Product key={item._id} {...item} />
             ))}
           </div>

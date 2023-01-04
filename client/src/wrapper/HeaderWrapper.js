@@ -45,8 +45,10 @@ const Wrapper = styled.div`
       .cart,
       .profile {
         margin-right: 10px;
-        a {
+        a,
+        p {
           display: flex;
+          cursor: pointer;
           text-transform: uppercase;
           font-size: 15px;
           color: rgb(146, 150, 159);

@@ -1,34 +1,26 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Ratings from "../components/Ratings";
 import Reviews from "../components/Reviews";
 import Wrapper from "../wrapper/ProductPageWrapper";
+import { fetchProduct } from "../store/slices/singleProductSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function ProductPage() {
   const { id } = useParams();
-  const [product, setProduct] = useState({});
+
+  const dispatch = useDispatch();
+  const { data, isLoading } = useSelector((state) => state.product);
 
   useEffect(() => {
-    fetchProduct();
-  }, []);
+    dispatch(fetchProduct(id));
+  }, [dispatch, id]);
 
-  async function fetchProduct() {
-    try {
-      const { data } = await axios.get(`/api/v1/product/getProduct/${id}`);
-      setProduct(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  if (!product._id) {
+  if (isLoading) {
     return <h1>Loading</h1>;
   }
 
-  console.log(product);
-
-  const { name, image, rating, numReviews, price, description } = product;
+  const { name, image, rating, numReviews, price, description } = data;
   return (
     <Wrapper>
       <div className="back-btn">

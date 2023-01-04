@@ -3,14 +3,25 @@ import Wrapper from "../wrapper/HeaderWrapper";
 import { BsFillCartFill } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { logOut } from "../store/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 function Header() {
   const [searchTerm, setSearchTerm] = useState("");
+
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.user);
+  // console.log(data);
 
   function searchHandler(e) {
     e.preventDefault();
     // Hint: Build Search Functionality
     console.log(searchTerm);
+  }
+  function logoutHandler() {
+    // console.log(`object`);
+    dispatch(logOut());
   }
   return (
     <Wrapper>
@@ -40,12 +51,16 @@ function Header() {
             </Link>
           </div>
           <div className="profile">
-            <Link to={"/login"}>
-              <div className="icon">
-                <FaUserAlt />
-              </div>
-              <p>sign in</p>
-            </Link>
+            {data ? (
+              <p onClick={() => logoutHandler()}>Logout</p>
+            ) : (
+              <Link to={"/login"}>
+                <div className="icon">
+                  <FaUserAlt />
+                </div>
+                <p>Sign In</p>
+              </Link>
+            )}
           </div>
         </div>
       </div>
