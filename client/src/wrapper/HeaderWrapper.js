@@ -44,7 +44,10 @@ const Wrapper = styled.div`
       display: flex;
       .cart,
       .profile {
-        margin-right: 10px;
+        /* border: 2px solid red; */
+        display: flex;
+        align-items: center;
+        margin: 0 15px;
         a,
         p {
           display: flex;
@@ -86,6 +89,17 @@ const Wrapper = styled.div`
             align-items: center;
             justify-content: space-between;
           }
+        }
+        span {
+          width: 20px;
+          height: 20px;
+          background-color: white;
+          color: black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          margin-left: 10px;
         }
       }
     }

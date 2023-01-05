@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Ratings from "../components/Ratings";
 import Reviews from "../components/Reviews";
 import Wrapper from "../wrapper/ProductPageWrapper";
 import { fetchProduct } from "../store/slices/singleProductSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../store/slices/cartSlice";
 
 function ProductPage() {
   const { id } = useParams();
+  const [qty, setQty] = useState(1);
 
   const dispatch = useDispatch();
   const { data, isLoading } = useSelector((state) => state.product);
@@ -19,8 +21,22 @@ function ProductPage() {
   if (isLoading) {
     return <h1>Loading</h1>;
   }
+  const { name, image, rating, numReviews, price, description, countInStock } =
+    data;
+  const stockArr = [];
+  for (let i = 1; i <= countInStock; i++) {
+    if (i > 10) {
+      break;
+    }
+    stockArr.push(i);
+  }
 
-  const { name, image, rating, numReviews, price, description } = data;
+  function addToCartHandler() {
+    console.log(qty);
+    // dispatch add to cart slice
+    dispatch(addToCart({ ...data, qty }));
+  }
+
   return (
     <Wrapper>
       <div className="back-btn">
@@ -55,19 +71,34 @@ function ProductPage() {
           </div>
           <div className="status">
             <p>Status:</p>
-            <p>In Stock</p>
+            {countInStock > 0 ? (
+              <p className="instock">In Stock</p>
+            ) : (
+              <p className="outofstock">Out of Stock</p>
+            )}
           </div>
           <div className="qty">
             <p>Qty</p>
-            <select name="qty" id="qty">
-              <option value="1">1</option>
+            <select
+              name="qty"
+              id="qty"
+              onChange={(e) => setQty(e.target.value)}
+            >
+              {stockArr.map((item) => (
+                <option value={item} key={item}>
+                  {item}
+                </option>
+              ))}
             </select>
           </div>
-          <Link to={"/cart"}>
-            <div className="btn">
-              <button>add to cart</button>
-            </div>
-          </Link>
+          <div className="btn">
+            <button
+              onClick={() => addToCartHandler()}
+              className={countInStock < 1 ? `disabled` : null}
+            >
+              add to cart
+            </button>
+          </div>
         </div>
       </div>
       <div className="reviews">

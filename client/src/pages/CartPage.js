@@ -1,8 +1,22 @@
 import React from "react";
 import Wrapper from "../wrapper/CartPageWrapper";
 import { FaTrash } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart } from "../store/slices/cartSlice";
+import { Link } from "react-router-dom";
 
 function CartPage() {
+  const { data } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const totalPrice = data.reduce((acc, item) => {
+    return acc + item.price * item.qty;
+  }, 0);
+
+  function itemRemoveHandler(id) {
+    dispatch(removeFromCart(id));
+  }
+
   return (
     <Wrapper>
       <div className="cart">
@@ -10,53 +24,46 @@ function CartPage() {
           <p>shopping cart</p>
         </div>
         <div className="body">
-          <div className="item">
-            <div className="image">
-              <img src="/images/airpods.jpg" alt="" />
-            </div>
-            <div className="product-title">
-              <p>airpods wireless bluetooth headphones</p>
-            </div>
-            <div className="price">
-              <p>$89.99</p>
-            </div>
-            <div className="qty">
-              <select name="qty" id="qty">
-                <option value="1">1</option>
-              </select>
-            </div>
-            <div className="remove">
-              <FaTrash />
-            </div>
-          </div>
-          {/*  */}
-          <div className="item">
-            <div className="image">
-              <img src="/images/airpods.jpg" alt="" />
-            </div>
-            <div className="product-title">
-              <p>airpods wireless bluetooth headphones</p>
-            </div>
-            <div className="price">
-              <p>$89.99</p>
-            </div>
-            <div className="qty">
-              <select name="qty" id="qty">
-                <option value="1">1</option>
-              </select>
-            </div>
-            <div className="remove">
-              <FaTrash />
-            </div>
-          </div>
+          {data.length === 0 ? (
+            <h1>
+              No items in cart. <Link to={"/"}>Go back to shopping</Link>
+            </h1>
+          ) : (
+            <>
+              {data.map((item) => (
+                <div className="item" key={item._id}>
+                  <div className="image">
+                    <img src={item.image} alt="" />
+                  </div>
+                  <div className="product-title">
+                    <p>{item.name}</p>
+                  </div>
+                  <div className="price">
+                    <p>${item.price}</p>
+                  </div>
+                  <div className="qty">
+                    <select name="qty" id="qty">
+                      <option value={item.qty}>{item.qty}</option>
+                    </select>
+                  </div>
+                  <div
+                    className="remove"
+                    onClick={() => itemRemoveHandler(item._id)}
+                  >
+                    <FaTrash />
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
         </div>
       </div>
       <div className="subtotal">
         <div className="title">
-          <p>subtotal (1) items</p>
+          <p>subtotal ({data.length}) items</p>
         </div>
         <div className="amt">
-          <p>$89.99</p>
+          <p>$ {totalPrice.toFixed(2)}</p>
         </div>
         <div className="btn">
           <button>proceed to checkout</button>

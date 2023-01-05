@@ -3,9 +3,8 @@ import Wrapper from "../wrapper/HeaderWrapper";
 import { BsFillCartFill } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { logOut } from "../store/slices/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiFillCaretDown } from "react-icons/ai";
 
 function Header() {
@@ -14,6 +13,7 @@ function Header() {
 
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.user);
+  const { data: cartItems } = useSelector((state) => state.cart);
   // console.log(data);
 
   function searchHandler(e) {
@@ -54,7 +54,9 @@ function Header() {
               <div className="icon">
                 <BsFillCartFill />
               </div>
-              <p>cart</p>
+              <p>
+                cart <span>{cartItems.length}</span>
+              </p>
             </Link>
           </div>
           <div className="profile">

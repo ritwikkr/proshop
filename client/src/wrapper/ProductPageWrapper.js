@@ -59,6 +59,12 @@ const Wrapper = styled.div`
         align-items: center;
         justify-content: space-between;
         border-bottom: 1px solid lightgray;
+        .instock {
+          color: green;
+        }
+        .outofstock {
+          color: red;
+        }
       }
       .qty {
         select {
@@ -75,6 +81,7 @@ const Wrapper = styled.div`
         border-bottom: none;
         height: 70px;
         button {
+          border: 2px solid red;
           width: 95%;
           height: 50px;
           background-color: black;
@@ -85,6 +92,10 @@ const Wrapper = styled.div`
           font-weight: 600;
           border: none;
           font-size: 16px;
+        }
+        button.disabled {
+          cursor: not-allowed;
+          opacity: 0.5;
         }
       }
     }
