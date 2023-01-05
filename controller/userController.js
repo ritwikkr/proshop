@@ -4,7 +4,7 @@ async function login(req, res) {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(500).json({ msg: "Please fill all details" });
+      return res.status(404).json("Please fill all details");
     }
     const user = await User.findOne({ email });
     if (!user) {
@@ -24,7 +24,7 @@ async function login(req, res) {
   }
 }
 
-async function signp(req, res) {
+async function signup(req, res) {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
@@ -37,11 +37,13 @@ async function signp(req, res) {
         .json({ msg: "You are already registered. Please log in" });
     }
     const data = await User.create({ name, email, password });
-    res.status(201).json(data);
+    const token = data.createJWT();
+    data.password = undefined;
+    res.status(201).json({ data, token });
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
   }
 }
 
-export { login, signp };
+export { login, signup };
