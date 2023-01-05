@@ -6,9 +6,11 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { logOut } from "../store/slices/userSlice";
 import { useDispatch } from "react-redux";
+import { AiFillCaretDown } from "react-icons/ai";
 
 function Header() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [showAccount, setShowAccount] = useState(false);
 
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.user);
@@ -19,6 +21,11 @@ function Header() {
     // Hint: Build Search Functionality
     console.log(searchTerm);
   }
+
+  function toggleAccountSection() {
+    setShowAccount(!showAccount);
+  }
+
   function logoutHandler() {
     // console.log(`object`);
     dispatch(logOut());
@@ -52,7 +59,16 @@ function Header() {
           </div>
           <div className="profile">
             {data ? (
-              <p onClick={() => logoutHandler()}>Logout</p>
+              <div className="user">
+                <p onClick={() => toggleAccountSection()}>
+                  {data.name} <AiFillCaretDown />
+                </p>
+                <ul className={showAccount ? "showAccount" : null}>
+                  <li>Profile</li>
+                  <hr />
+                  <li onClick={() => logoutHandler()}>Logout</li>
+                </ul>
+              </div>
             ) : (
               <Link to={"/login"}>
                 <div className="icon">

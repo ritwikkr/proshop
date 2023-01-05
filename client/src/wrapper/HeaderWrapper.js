@@ -56,6 +56,37 @@ const Wrapper = styled.div`
             margin-right: 5px;
           }
         }
+        .user {
+          position: relative;
+          ul {
+            position: absolute;
+            z-index: 10;
+            top: 200%;
+            right: 50%;
+            transform: translateX(50%);
+            width: 200px;
+            background-color: white;
+            color: black;
+            display: none;
+            li {
+              list-style: none;
+              font-size: 15px;
+              cursor: pointer;
+              margin: 10px 0;
+              padding: 10px;
+              text-transform: uppercase;
+            }
+          }
+          ul.showAccount {
+            display: block;
+          }
+          > p {
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+        }
       }
     }
   }
