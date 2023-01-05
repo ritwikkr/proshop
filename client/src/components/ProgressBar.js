@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-function ProgressBar({ shipping, paymentMethod }) {
+function ProgressBar({ shipping, paymentMethod, placeOrder }) {
   const { data } = useSelector((state) => state.user);
   return (
     <Wrapper>
@@ -11,7 +11,7 @@ function ProgressBar({ shipping, paymentMethod }) {
           <li className={data ? "active" : null}>Sign In</li>
           <li className={shipping ? "active" : null}>Shipping</li>
           <li className={paymentMethod ? "active" : null}>Payment</li>
-          <li>Place Order</li>
+          <li className={placeOrder ? "active" : null}>Place Order</li>
         </ul>
       </div>
     </Wrapper>
