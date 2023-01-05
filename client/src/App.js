@@ -6,6 +6,9 @@ import Loginpage from "./pages/Loginpage";
 import ProductPage from "./pages/ProductPage";
 import PageNotFound from "./pages/PageNotFound";
 import Footer from "./components/Footer";
+import ShippingPage from "./pages/ShippingPage";
+import PaymentMethodPage from "./pages/PaymentMethodPage";
+import PlaceOrderPage from "./pages/PlaceOrderPage";
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
         <Route path="/cart" element={<Cartpage />} />
         <Route path="/login" element={<Loginpage />} />
         <Route path="/productPage/:id" element={<ProductPage />} />
+        <Route path="/shipping" element={<ShippingPage />} />
+        <Route path="/paymentMethod" element={<PaymentMethodPage />} />
+        <Route path="/order" element={<PlaceOrderPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
