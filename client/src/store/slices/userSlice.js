@@ -11,6 +11,14 @@ export const createSession = createAsyncThunk(
   }
 );
 
+export const addUserAddress = createAsyncThunk(
+  "addUserAddress",
+  async (body) => {
+    const response = await axios.put(`/api/v1/user/addAddress`, body);
+    console.log(response);
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -43,9 +51,10 @@ const userSlice = createSlice({
     builder.addCase(createSession.rejected, (state, action) => {
       state.isLoading = false;
       state.data = null;
-      console.log(action);
       state.isError = action.payload;
     });
+
+    builder.addCase(addUserAddress.pending, (state, action) => {});
   },
 });
 

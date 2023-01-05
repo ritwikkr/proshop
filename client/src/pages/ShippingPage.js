@@ -1,21 +1,28 @@
 import React, { useState } from "react";
 import Wrapper from "../wrapper/ShippingPageWrapper";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import ProgressBar from "../components/ProgressBar";
+import { useNavigate } from "react-router-dom";
 
 function ShippingPage() {
-  const [address, setAddress] = useState({
+  const [useraddress, setUserAddress] = useState({
     address: "",
     city: "",
     postal_code: "",
     country: "",
   });
 
+  const navigate = useNavigate();
+
   function formSubmitHandler(e) {
     e.preventDefault();
-    console.log(address);
+    const { address, city, postal_code, country } = useraddress;
+    if (!address || !city || !postal_code || !country) {
+      return;
+    }
+    navigate("/paymentMethod");
   }
-  const { data } = useSelector((state) => state.user);
+  // const { data } = useSelector((state) => state.user);
 
   return (
     <Wrapper>
@@ -34,7 +41,7 @@ function ShippingPage() {
                   id="address"
                   placeholder="Enter Address"
                   onChange={(e) =>
-                    setAddress({ ...address, address: e.target.value })
+                    setUserAddress({ ...useraddress, address: e.target.value })
                   }
                 />
               </div>
@@ -45,7 +52,7 @@ function ShippingPage() {
                   id="city"
                   placeholder="Enter City"
                   onChange={(e) =>
-                    setAddress({ ...address, city: e.target.value })
+                    setUserAddress({ ...useraddress, city: e.target.value })
                   }
                 />
               </div>
@@ -56,7 +63,10 @@ function ShippingPage() {
                   id="code"
                   placeholder="Enter Postal Code"
                   onChange={(e) =>
-                    setAddress({ ...address, postal_code: e.target.value })
+                    setUserAddress({
+                      ...useraddress,
+                      postal_code: e.target.value,
+                    })
                   }
                 />
               </div>
@@ -67,7 +77,7 @@ function ShippingPage() {
                   id="country"
                   placeholder="Enter Country"
                   onChange={(e) =>
-                    setAddress({ ...address, country: e.target.value })
+                    setUserAddress({ ...useraddress, country: e.target.value })
                   }
                 />
               </div>

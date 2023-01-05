@@ -46,4 +46,13 @@ async function signup(req, res) {
   }
 }
 
-export { login, signup };
+async function addAddress(req, res) {
+  try {
+    console.log(req.body);
+    // const data = await User.findByIdAndUpdate()
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { login, signup, addAddress };

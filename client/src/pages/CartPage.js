@@ -3,11 +3,13 @@ import Wrapper from "../wrapper/CartPageWrapper";
 import { FaTrash } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../store/slices/cartSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function CartPage() {
   const { data } = useSelector((state) => state.cart);
+  const { data: userData } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const totalPrice = data.reduce((acc, item) => {
     return acc + item.price * item.qty;
@@ -15,6 +17,13 @@ function CartPage() {
 
   function itemRemoveHandler(id) {
     dispatch(removeFromCart(id));
+  }
+
+  function proceedHandler() {
+    if (!userData) {
+      return navigate("/login");
+    }
+    navigate("/paymentMethod");
   }
 
   return (
@@ -66,7 +75,9 @@ function CartPage() {
           <p>$ {totalPrice.toFixed(2)}</p>
         </div>
         <div className="btn">
-          <button>proceed to checkout</button>
+          {/* <Link to={"/paymentMethod/?"}> */}
+          <button onClick={() => proceedHandler()}>proceed to checkout</button>
+          {/* </Link> */}
         </div>
       </div>
     </Wrapper>

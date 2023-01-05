@@ -32,7 +32,7 @@ function PlaceOrderPage() {
               <h2 className="title">order items</h2>
               <ul>
                 {data.map((item) => (
-                  <>
+                  <div key={item._id}>
                     <li>
                       <div className="product-image">
                         <img src={item.image} alt={item.name} />
@@ -45,7 +45,7 @@ function PlaceOrderPage() {
                       </div>
                     </li>
                     <hr />
-                  </>
+                  </div>
                 ))}
               </ul>
             </div>

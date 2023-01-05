@@ -1,6 +1,7 @@
 import React from "react";
 import ProgressBar from "../components/ProgressBar";
 import Wrapper from "../wrapper/PaymentMethodPage";
+import { Link } from "react-router-dom";
 
 function PaymentMethodPage() {
   return (
@@ -11,11 +12,13 @@ function PaymentMethodPage() {
           <h1>payment method</h1>
           <div className="select-method">
             <p className="title">select method</p>
-            <input type="radio" name="paypal" id="paypal" checked />
+            <input type="radio" name="paypal" id="paypal" checked readOnly />
             <label htmlFor="paypal">PayPal or Credit Card</label>
           </div>
           <div className="btn">
-            <button>continue</button>
+            <Link to={"/order"}>
+              <button>continue</button>
+            </Link>
           </div>
         </div>
       </div>
