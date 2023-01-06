@@ -1,4 +1,6 @@
 import express from "express";
+import path from "path";
+
 import connectDB from "./db/connectDB.js";
 import productRoute from "./router/productRoute.js";
 import userRoute from "./router/userRoutes.js";
@@ -17,6 +19,15 @@ app.use(express.json());
 
 app.use("/api/v1/product", productRoute);
 app.use("/api/v1/user", userRoute);
+
+if (process.env.NODE_ENV === "production") {
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, "/client/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 function start() {
   const PORT = process.env.PORT || 5000;
